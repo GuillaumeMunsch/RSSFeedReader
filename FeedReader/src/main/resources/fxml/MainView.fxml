@@ -1,68 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.munsch.feedreader.MainViewController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuBar VBox.vgrow="NEVER">
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
             <HBox prefHeight="379.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="771.0" prefWidth="198.0" style="-fx-background-color: #f4f7f9;" HBox.hgrow="ALWAYS">
                      <children>
-                        <Pane minHeight="60.0" prefHeight="70.0">
-                           <children>
-                              <Label layoutX="200.0" layoutY="26.0" text="Feeds" />
-                           </children>
-                        </Pane>
-                        <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="42.0" prefWidth="198.0" style="-fx-padding: 0; -fx-background-color: rgb(2, 195, 134); -fx-background-radius: none;" text="Add +" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Light" size="19.0" />
+                           </font>
+                        </Button>
+                        <ListView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: none;" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="331.0" style="-fx-background-color: #f4f7f9;" HBox.hgrow="ALWAYS">
                      <children>
-                        <Pane minHeight="60.0" prefHeight="70.0">
+                        <TextField alignment="CENTER" prefHeight="41.0" prefWidth="336.0" promptText="Search" style="-fx-background-color: none;">
+                           <font>
+                              <Font name="Roboto Light" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Pane prefHeight="2.0" style="-fx-background-color: #c9c9c9;" />
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label layoutX="183.0" layoutY="27.0" text="Current feed" />
+                              <Pane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="2.0" prefWidth="2.0" style="-fx-background-color: #eee;" />
+                              <ListView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: none;" HBox.hgrow="ALWAYS" />
                            </children>
-                        </Pane>
-                        <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        </HBox>
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="771.0" prefWidth="0.0" style="-fx-background-color: #ffffff;" HBox.hgrow="ALWAYS">
                      <children>
-                        <Pane minHeight="60.0" prefHeight="70.0">
+                        <HBox prefHeight="43.0">
                            <children>
-                              <Label layoutX="182.0" layoutY="25.0" text="Current news" />
+                              <VBox maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Pane maxHeight="-Infinity" prefHeight="41.0" />
+                                    <Pane prefHeight="2.0" style="-fx-background-color: #eee;" />
+                                 </children>
+                              </VBox>
+                              <Button maxHeight="-Infinity" mnemonicParsing="false" prefHeight="42.0" prefWidth="110.0" style="-fx-background-radius: 0; -fx-background-color: rgb(2, 195, 134);" text="Logout" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto Regular" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
                            </children>
-                        </Pane>
-                        <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        </HBox>
                      </children>
                   </VBox>
                </children>
