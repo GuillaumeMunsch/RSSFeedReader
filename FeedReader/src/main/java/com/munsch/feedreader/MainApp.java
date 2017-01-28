@@ -1,6 +1,8 @@
 package com.munsch.feedreader;
 
 import com.guigarage.flatterfx.FlatterFX;
+import com.munsch.feedreader.utils.PropsManager;
+import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,12 @@ public class MainApp extends Application {
         stage.setScene(scene);
         stage.show();
         FlatterFX.style();
+        PropsManager.getInstance().setProperty("url", "http://socialhive.fr:4242/");
+        try {
+            System.out.println(PropsManager.getInstance().getProperty("url"));
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
     }
 
     /**
