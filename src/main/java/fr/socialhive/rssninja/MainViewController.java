@@ -270,6 +270,9 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void modalAddClick(ActionEvent event) throws IOException {
+        if (this.inputLabel.getText() == null || this.inputURL.getText() == null) {
+            return;
+        }
         System.out.println(feedsList);
         Call<RSSFeed> call = WebServiceSingleton.getInstance().getService()
                 .addFeed(new RSSFeed(this.inputLabel.getText(), this.inputURL.getText()));

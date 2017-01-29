@@ -28,6 +28,9 @@ public class ConnectController implements Initializable {
     private Button loginButton;
 
     @FXML
+    private Button signupButton;
+
+    @FXML
     private TextField usernameInput;
 
     @FXML
@@ -39,6 +42,9 @@ public class ConnectController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         if (event.getSource() == loginButton) {
+            if (passwordInput.getText() == null || usernameInput.getText() == null) {
+                return;
+            }
             System.out.println(usernameInput.getText());
             Call<RespAuth> call = WebServiceSingleton.getInstance().getService()
                     .login(new ReaderService.LoginInformation(usernameInput.getText(), passwordInput.getText()));
@@ -74,6 +80,64 @@ public class ConnectController implements Initializable {
             });
 
         }
+    }
+
+    @FXML
+    private void signupClicked(ActionEvent event) throws IOException {
+        if (passwordInput.getText() == null || usernameInput.getText() == null) {
+            return;
+        }
+        System.out.println(usernameInput.getText());
+        Call<Void> call = WebServiceSingleton.getInstance().getService()
+                .signup(new ReaderService.LoginInformation(usernameInput.getText(), passwordInput.getText()));
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                System.out.println("Code: " + response.code());
+                if (response.code() == 200) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                stage = (Stage) signupButton.getScene().getWindow();
+                                root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
+                                Scene scene = new Scene(root);
+                                stage.setScene(scene);
+                                stage.show();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    System.out.println("WTF");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                t.printStackTrace();
+            }
+
+        });
+    }
+
+    @FXML
+    public void toSignupForm(ActionEvent event) throws IOException {
+        stage = (Stage) loginButton.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/fxml/Signup.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void backToLogin(ActionEvent event) throws IOException {
+        stage = (Stage) loginButton.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/fxml/Connect.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override

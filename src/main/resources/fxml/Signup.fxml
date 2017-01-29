@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -15,41 +16,28 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.socialhive.rssninja.ConnectController">
    <children>
-      <Pane prefHeight="275.0" prefWidth="600.0" style="-fx-background-color: none;">
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToLogin" prefHeight="25.0" prefWidth="72.0" style="-fx-background-color: rgb(2, 195, 134); -fx-background-radius: 0;" text="Back" textFill="WHITE">
+         <VBox.margin>
+            <Insets left="15.0" top="15.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Roboto Light" size="13.0" />
+         </font>
+      </Button>
+      <Pane prefHeight="219.0" prefWidth="600.0" style="-fx-background-color: none;">
          <children>
-            <ImageView fitHeight="177.0" fitWidth="168.0" layoutX="254.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="177.0" fitWidth="168.0" layoutX="254.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/rss-ninja-no-border.png" />
                </image>
             </ImageView>
          </children>
       </Pane>
-      <GridPane prefWidth="600.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="275.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="16.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="89.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="142.0" minWidth="10.0" prefWidth="126.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="14.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="22.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" text="No account yet?" textFill="#7c7c7c" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Roboto Light" size="29.0" />
-               </font>
-            </Label>
-            <Button alignment="CENTER" maxHeight="29.0" maxWidth="1.7976931348623157E308" minHeight="29.0" mnemonicParsing="false" prefHeight="29.0" style="-fx-background-color: rgb(2, 195, 134); -fx-background-radius: 0;" onAction="#toSignupForm" fx:id="signupButton" text="Signup" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Roboto Light" size="13.0" />
-               </font>
-            </Button>
-         </children>
-      </GridPane>
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Account creation" textFill="#656464">
+         <font>
+            <Font name="Roboto Light" size="44.0" />
+         </font>
+      </Label>
       <GridPane maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="77.0" prefWidth="77.0" />
@@ -66,7 +54,7 @@
           <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button id="login-button" fx:id="loginButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-color: rgb(2, 195, 134);; -fx-background-radius: none;" stylesheets="@../styles/Styles.css" text="Login" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Button id="login-button" fx:id="signupButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#signupClicked" style="-fx-background-color: rgb(2, 195, 134);; -fx-background-radius: none;" stylesheets="@../styles/Styles.css" text="Signup" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <font>
                   <Font name="Roboto Light" size="13.0" />
                </font></Button>
@@ -75,7 +63,7 @@
                   <Font name="Roboto Light" size="13.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="passwordInput" promptText="Password" style="-fx-background-color: white; -fx-background-radius: none;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <PasswordField fx:id="passwordInput" maxHeight="1.7976931348623157E308" promptText="Password" style="-fx-background-color: white; -fx-background-radius: none;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
                   <Font size="13.0" />
                </font>
