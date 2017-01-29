@@ -31,6 +31,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
@@ -158,6 +160,14 @@ public class MainViewController implements Initializable {
             public void handle(MouseEvent event) {
             fetchFeedItems(feedsList.get(feedsListView.getSelectionModel().getSelectedIndex()).getId().intValue());
             webView.getEngine().loadContent("");
+            }
+        });
+        feedsListView.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.DELETE); {
+                    feedsListView.getItems().remove(feedItemsListView.getSelectionModel().getSelectedIndex());
+                }
             }
         });
         feedItemsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
