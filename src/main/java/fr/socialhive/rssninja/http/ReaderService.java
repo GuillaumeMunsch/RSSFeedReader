@@ -5,15 +5,14 @@
  */
 package fr.socialhive.rssninja.http;
 
+import fr.socialhive.rssninja.models.JSendResp;
 import fr.socialhive.rssninja.models.RSSFeed;
 import fr.socialhive.rssninja.models.RespAuth;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
+import retrofit2.http.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -37,4 +36,10 @@ public interface ReaderService {
 
     @PUT("/me/feeds")
     Call<RSSFeed> addFeed(@Body RSSFeed feed);
+
+    @PUT("/me/feeds/{id}")
+    Call<List<RSSFeed>> removeFeed(@Path("id") Long id);
+
+    @POST("/auth/logout")
+    Call<JSendResp> logout();
 }

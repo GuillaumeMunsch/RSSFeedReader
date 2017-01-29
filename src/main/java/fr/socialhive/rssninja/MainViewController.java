@@ -8,10 +8,12 @@ package fr.socialhive.rssninja;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import fr.socialhive.rssninja.http.ReaderService;
 import fr.socialhive.rssninja.http.WebServiceSingleton;
+import fr.socialhive.rssninja.models.JSendResp;
 import fr.socialhive.rssninja.models.RSSFeed;
 import fr.socialhive.rssninja.models.RespAuth;
 import javafx.application.Platform;
@@ -23,7 +25,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import retrofit2.Call;
@@ -41,18 +46,46 @@ public class MainViewController implements Initializable {
 
     @FXML
     private Button addButton;
-    
+
     @FXML
-    private void handleButtonAction(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-       if (event.getSource() == logoutButton) {
-           stage = (Stage) logoutButton.getScene().getWindow();
-           root = FXMLLoader.load(getClass().getResource("/fxml/Connect.fxml"));
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           stage.show();
-       }
+    private WebView mainWebView;
+    @FXML
+    private ProgressIndicator spinner;
+
+    @FXML
+    private void logout(ActionEvent event) throws IOException {
+        Call<JSendResp> call = WebServiceSingleton.getInstance().getService()
+                .logout();
+        call.enqueue(new Callback<JSendResp>() {
+            @Override
+            public void onResponse(Call<JSendResp> call, Response<JSendResp> response) {
+                System.out.println("Code: " + response.code());
+                if (response.code() == 200) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Stage stage = (Stage) logoutButton.getScene().getWindow();
+                                Parent root = FXMLLoader.load(getClass().getResource("/fxml/Connect.fxml"));
+                                Scene scene = new Scene(root);
+                                stage.setScene(scene);
+                                stage.show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    System.out.println("WTF");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSendResp> call, Throwable t) {
+                t.printStackTrace();
+            }
+
+        });
     }
 
     @FXML
@@ -72,6 +105,41 @@ public class MainViewController implements Initializable {
         }
     }
 
+    private void displayInWebView(String url) {
+        spinner.setVisible(true);
+        WebEngine engine = mainWebView.getEngine();
+        engine.load(url);
+    }
+
+    @FXML
+    private void deleteFeed(ActionEvent event) throws IOException {
+        Long id = new Long(0); // TODO: get id at onClick munsch
+        Call<List<RSSFeed>> call = WebServiceSingleton.getInstance().getService()
+                .removeFeed(id);
+        call.enqueue(new Callback<List<RSSFeed>>() {
+
+            @Override
+            public void onResponse(Call<List<RSSFeed>> call, Response<List<RSSFeed>> response) {
+                System.out.println("Code: " + response.code());
+                if (response.code() == 200) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            // TODO: Update list by removing the feed
+                        }
+                    });
+                } else {
+                    System.out.println("WTF");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RSSFeed>> call, Throwable t) {
+                t.printStackTrace();
+            }
+
+        });
+    }
     
         @Override
     public void initialize(URL url, ResourceBundle rb) {
