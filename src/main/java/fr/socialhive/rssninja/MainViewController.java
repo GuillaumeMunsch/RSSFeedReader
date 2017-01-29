@@ -148,29 +148,28 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    private void deleteFeed(ActionEvent event) throws IOException {
-        Long id = new Long(0); // TODO: get id at onClick munsch
-        Call<List<RSSFeed>> call = WebServiceSingleton.getInstance().getService()
-                .removeFeed(id);
-        call.enqueue(new Callback<List<RSSFeed>>() {
+    private void deleteFeed(int id) {
+        Call<Void> call = WebServiceSingleton.getInstance().getService().removeFeed(id);
+        call.enqueue(new Callback<Void>() {
 
             @Override
-            public void onResponse(Call<List<RSSFeed>> call, Response<List<RSSFeed>> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 System.out.println("Code: " + response.code());
                 if (response.code() == 200) {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            // TODO: Update list by removing the feed
+                            feedsListView.getItems().remove(feedsListView.getSelectionModel().getSelectedIndex());
+                            feedsList.remove(feedsListView.getSelectionModel().getSelectedIndex());
                         }
                     });
                 } else {
-                    System.out.println("WTF");
+                    System.out.println("WTF: " + response.toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<RSSFeed>> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 t.printStackTrace();
             }
 
@@ -256,7 +255,8 @@ public class MainViewController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if(event.getCode() == KeyCode.DELETE); {
-                    feedsListView.getItems().remove(feedItemsListView.getSelectionModel().getSelectedIndex());
+                    System.out.println("Value: " + feedsList.get(feedsListView.getSelectionModel().getSelectedIndex()).getId().intValue());
+                    deleteFeed(feedsList.get(feedsListView.getSelectionModel().getSelectedIndex()).getId().intValue());
                 }
             }
         });

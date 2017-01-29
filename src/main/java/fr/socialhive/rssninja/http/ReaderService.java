@@ -38,8 +38,8 @@ public interface ReaderService {
     @PUT("/me/feeds")
     Call<RSSFeed> addFeed(@Body RSSFeed feed);
 
-    @PUT("/me/feeds/{id}")
-    Call<List<RSSFeed>> removeFeed(@Path("id") Long id);
+    @DELETE("/me/feeds/{id}")
+    Call<Void> removeFeed(@Path("id") int id);
 
     @POST("/auth/logout")
     Call<JSendResp> logout();
