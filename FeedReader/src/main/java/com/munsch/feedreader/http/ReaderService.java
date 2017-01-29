@@ -11,22 +11,25 @@ import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Munsch
  */
 public interface ReaderService {
 
-  public class LoginInformation {
-      String email;
-      String password;
+    class LoginInformation {
 
-      public LoginInformation(String email, String password){
-          email = email;
-          password = password;
-      }
-  }
-    @Headers("Content-Type: application/json")
-    @POST("auth/login")
-  Call<RespAuth> login(@Body LoginInformation logsinInformation);
+      public String email;
+      public String password;
+
+       public LoginInformation(String email, String password) {
+           this.email = email;
+           this.password = password;
+       }
+   }
+
+  @POST("/auth/login")
+  Call<RespAuth> login(@Body LoginInformation creds);
 }
