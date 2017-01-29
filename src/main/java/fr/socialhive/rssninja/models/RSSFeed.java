@@ -64,4 +64,6 @@ public class RSSFeed implements Serializable {
     public void setOwner_id(Long owner_id) {
         this.owner_id = owner_id;
     }
+
+    public String toString() { return name; }
 }

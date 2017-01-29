@@ -59,7 +59,7 @@ public class WebServiceSingleton {
                             .create();
 
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://localhost:8080")
+                            .baseUrl("http://www.socialhive.fr:4242")
                             .client(client)
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                             .addConverterFactory(JacksonConverterFactory.create(om))

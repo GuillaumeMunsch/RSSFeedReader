@@ -9,8 +9,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.socialhive.rssninja.MainViewController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.socialhive.rssninja.MainViewController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -18,12 +19,12 @@
                <children>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="771.0" prefWidth="198.0" style="-fx-background-color: #f4f7f9;" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="addButton" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="42.0" prefWidth="198.0" style="-fx-padding: 0; -fx-background-color: rgb(2, 195, 134); -fx-background-radius: none;" onAction="#handleAddRSSButton" text="Add +" textFill="WHITE">
+                        <Button fx:id="addButton" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddRSSButton" prefHeight="42.0" prefWidth="198.0" style="-fx-padding: 0; -fx-background-color: rgb(2, 195, 134); -fx-background-radius: none;" text="Add +" textFill="WHITE">
                            <font>
                               <Font name="Roboto Light" size="19.0" />
                            </font>
                         </Button>
-                        <ListView fx:id="rssFeeds" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: none;" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="feedsListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: none;" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="331.0" style="-fx-background-color: #f4f7f9;" HBox.hgrow="ALWAYS">
@@ -37,7 +38,7 @@
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                            <children>
                               <Pane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="2.0" prefWidth="2.0" style="-fx-background-color: #eee;" />
-                              <ListView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: none;" HBox.hgrow="ALWAYS" />
+                              <ListView fx:id="feedItemsListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: none;" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                      </children>
@@ -62,6 +63,7 @@
                               </Button>
                            </children>
                         </HBox>
+                        <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>
