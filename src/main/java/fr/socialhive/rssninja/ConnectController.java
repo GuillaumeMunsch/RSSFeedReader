@@ -133,7 +133,7 @@ public class ConnectController implements Initializable {
 
     @FXML
     public void backToLogin(ActionEvent event) throws IOException {
-        stage = (Stage) loginButton.getScene().getWindow();
+        stage = (Stage) signupButton.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/fxml/Connect.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
