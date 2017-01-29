@@ -5,6 +5,7 @@
  */
 package fr.socialhive.rssninja.http;
 
+import fr.socialhive.rssninja.models.JSendResp;
 import fr.socialhive.rssninja.models.Feed;
 import fr.socialhive.rssninja.models.RSSFeed;
 import fr.socialhive.rssninja.models.RespAuth;
@@ -36,6 +37,12 @@ public interface ReaderService {
 
     @PUT("/me/feeds")
     Call<RSSFeed> addFeed(@Body RSSFeed feed);
+
+    @PUT("/me/feeds/{id}")
+    Call<List<RSSFeed>> removeFeed(@Path("id") Long id);
+
+    @POST("/auth/logout")
+    Call<JSendResp> logout();
 
     @GET("/me/feeds")
     Call<List<RSSFeed>> getFeeds();

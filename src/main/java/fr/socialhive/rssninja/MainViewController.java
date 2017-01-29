@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import fr.socialhive.rssninja.http.ReaderService;
 import fr.socialhive.rssninja.http.WebServiceSingleton;
 import fr.socialhive.rssninja.models.Feed;
+import fr.socialhive.rssninja.models.JSendResp;
 import fr.socialhive.rssninja.models.RSSFeed;
 import fr.socialhive.rssninja.models.RespAuth;
 import fr.socialhive.rssninja.utils.Utils;
@@ -30,10 +31,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -49,29 +52,76 @@ import retrofit2.Response;
 public class MainViewController implements Initializable {
     @FXML
     private Button logoutButton;
+
     @FXML
     private Button addButton;
+
     @FXML
     private ListView feedsListView;
     @FXML
     private ListView feedItemsListView;
     @FXML
     private WebView webView;
+    @FXML
+    private Button buttonAdd;
+    @FXML
+    private TextField inputLabel;
+    @FXML
+    private TextField inputURL;
 
     private List<RSSFeed> feedsList;
     private Feed feedItemsList;
 
+    public List<RSSFeed> getFeedsList() {
+        return feedsList;
+    }
+
+    public void setFeedsList(List<RSSFeed> feedsList) {
+        this.feedsList = feedsList;
+    }
+
+    public ListView getFeedsListView() {
+        return feedsListView;
+    }
+
+    public void setFeedsListView(ListView feedsListView) {
+        this.feedsListView = feedsListView;
+    }
+
     @FXML
-    private void handleButtonAction(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        if (event.getSource() == logoutButton) {
-            stage = (Stage) logoutButton.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("/fxml/Connect.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }
+    private void logout(ActionEvent event) throws IOException {
+        Call<JSendResp> call = WebServiceSingleton.getInstance().getService()
+                .logout();
+        call.enqueue(new Callback<JSendResp>() {
+            @Override
+            public void onResponse(Call<JSendResp> call, Response<JSendResp> response) {
+                System.out.println("Code: " + response.code());
+                if (response.code() == 200) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Stage stage = (Stage) logoutButton.getScene().getWindow();
+                                Parent root = FXMLLoader.load(getClass().getResource("/fxml/Connect.fxml"));
+                                Scene scene = new Scene(root);
+                                stage.setScene(scene);
+                                stage.show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    System.out.println("WTF");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSendResp> call, Throwable t) {
+                t.printStackTrace();
+            }
+
+        });
     }
 
     @FXML
@@ -80,15 +130,51 @@ public class MainViewController implements Initializable {
         Parent root;
         if (event.getSource() == addButton) {
             stage = new Stage();
-            root = FXMLLoader.load(getClass().getResource("/fxml/AddModal.fxml"));
+            URL location = getClass().getResource("/fxml/AddModal.fxml");
+            FXMLLoader loader = new FXMLLoader(location);
+            loader.setLocation(location);
+            root = loader.load();
+            MainViewController c = loader.getController();
+            c.setFeedsListView(feedsListView);
+            c.setFeedsList(feedsList);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Add a feed");
             stage.setResizable(false);
-            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+            stage.initOwner(((Node)event.getSource()).getScene().getWindow());
             stage.show();
         }
+    }
+
+    @FXML
+    private void deleteFeed(ActionEvent event) throws IOException {
+        Long id = new Long(0); // TODO: get id at onClick munsch
+        Call<List<RSSFeed>> call = WebServiceSingleton.getInstance().getService()
+                .removeFeed(id);
+        call.enqueue(new Callback<List<RSSFeed>>() {
+
+            @Override
+            public void onResponse(Call<List<RSSFeed>> call, Response<List<RSSFeed>> response) {
+                System.out.println("Code: " + response.code());
+                if (response.code() == 200) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            // TODO: Update list by removing the feed
+                        }
+                    });
+                } else {
+                    System.out.println("WTF");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RSSFeed>> call, Throwable t) {
+                t.printStackTrace();
+            }
+
+        });
     }
 
     private void fetchFeedItems(int id) {
@@ -126,6 +212,10 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println(url.getFile());
+        if (url.getFile().contains("AddModal.fxml")) {
+            return;
+        }
         Call<List<RSSFeed>> call = WebServiceSingleton.getInstance().getService().getFeeds();
         call.enqueue(new Callback<List<RSSFeed>>() {
             @Override
@@ -158,8 +248,8 @@ public class MainViewController implements Initializable {
         feedsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-            fetchFeedItems(feedsList.get(feedsListView.getSelectionModel().getSelectedIndex()).getId().intValue());
-            webView.getEngine().loadContent("");
+                fetchFeedItems(feedsList.get(feedsListView.getSelectionModel().getSelectedIndex()).getId().intValue());
+                webView.getEngine().loadContent("");
             }
         });
         feedsListView.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -175,6 +265,42 @@ public class MainViewController implements Initializable {
             public void handle(MouseEvent event) {
                 webView.getEngine().load(feedItemsList.getItems().get(feedItemsListView.getSelectionModel().getSelectedIndex()).getLink());
             }
+        });
+    }
+
+    @FXML
+    private void modalAddClick(ActionEvent event) throws IOException {
+        System.out.println(feedsList);
+        Call<RSSFeed> call = WebServiceSingleton.getInstance().getService()
+                .addFeed(new RSSFeed(this.inputLabel.getText(), this.inputURL.getText()));
+        call.enqueue(new Callback<RSSFeed>() {
+
+            @Override
+            public void onResponse(Call<RSSFeed> call, final Response<RSSFeed> response) {
+                System.out.println("Code: " + response.code());
+                System.out.println(feedsListView);
+                if (response.code() == 200) {
+                    System.out.println("Added");
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println(feedsListView);
+                            feedsListView.getItems().add(response.body().getName());
+                            feedsList.add(response.body());
+                            Stage stage = (Stage) buttonAdd.getScene().getWindow();
+                            stage.close();
+                        }
+                    });
+                } else {
+                    System.out.println("WTF");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RSSFeed> call, Throwable t) {
+                t.printStackTrace();
+            }
+
         });
     }
 }
