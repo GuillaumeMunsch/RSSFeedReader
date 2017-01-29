@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.munsch.feedreader.ConnectController">
    <children>
       <Pane prefHeight="328.0" prefWidth="600.0" style="-fx-background-color: none;">
          <children>
@@ -38,16 +38,16 @@
           <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button id="login-button" fx:id="loginButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: rgb(2, 195, 134);; -fx-background-radius: none;" stylesheets="@../styles/Styles.css" text="Login" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Button id="login-button" fx:id="loginButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-color: rgb(2, 195, 134);; -fx-background-radius: none;" stylesheets="@../styles/Styles.css" text="Login" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <font>
                   <Font name="Roboto Light" size="13.0" />
                </font></Button>
-            <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Username" style="-fx-background-color: white; -fx-background-radius: none;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="usernameInput" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Username" style="-fx-background-color: white; -fx-background-radius: none;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Roboto Light" size="13.0" />
                </font>
             </TextField>
-            <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Password" style="-fx-background-color: white; -fx-background-radius: none;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <TextField fx:id="passwordInput" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Password" style="-fx-background-color: white; -fx-background-radius: none;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
                   <Font name="Roboto Light" size="13.0" />
                </font>

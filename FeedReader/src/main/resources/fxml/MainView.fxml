@@ -52,7 +52,7 @@
                                     <Pane prefHeight="2.0" style="-fx-background-color: #eee;" />
                                  </children>
                               </VBox>
-                              <Button maxHeight="-Infinity" mnemonicParsing="false" prefHeight="42.0" prefWidth="110.0" style="-fx-background-radius: 0; -fx-background-color: rgb(2, 195, 134);" text="Logout" textFill="WHITE" HBox.hgrow="ALWAYS">
+                              <Button fx:id="logoutButton" maxHeight="-Infinity" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="42.0" prefWidth="110.0" style="-fx-background-radius: 0; -fx-background-color: rgb(2, 195, 134);" text="Logout" textFill="WHITE" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Roboto Regular" size="15.0" />
                                  </font>
