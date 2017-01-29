@@ -16,6 +16,8 @@ public class RespAuth implements Serializable {
         public String token;
         public String email;
 
+        public RespAuth() {}
+
         public RespAuth(Long id, String token, String email) {
             this.id = id;
             this.token = token;
