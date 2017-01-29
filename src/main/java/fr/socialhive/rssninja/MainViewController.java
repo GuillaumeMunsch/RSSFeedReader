@@ -72,6 +72,20 @@ public class MainViewController implements Initializable {
     private List<RSSFeed> feedsList;
     private Feed feedItemsList;
 
+    private Stage stage;
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void showStage(){
+        stage.show();
+    }
+
     public List<RSSFeed> getFeedsList() {
         return feedsList;
     }
@@ -211,7 +225,6 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(url.getFile());
         if (url.getFile().contains("AddModal.fxml")) {
             return;
         }
