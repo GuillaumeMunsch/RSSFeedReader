@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.socialhive.rssninja.AddModalController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.socialhive.rssninja.MainViewController">
    <children>
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <columnConstraints>
@@ -48,7 +48,7 @@
             <RowConstraints maxHeight="15.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="buttonAdd" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addRSSFeed" prefHeight="33.0" prefWidth="108.0" style="-fx-background-color: rgb(2, 195, 134); -fx-background-radius: 0;" text="Add" textFill="WHITE" GridPane.columnIndex="1">
+            <Button fx:id="buttonAdd" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#modalAddClick" prefHeight="33.0" prefWidth="108.0" style="-fx-background-color: rgb(2, 195, 134); -fx-background-radius: 0;" text="Add" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Roboto Light" size="16.0" />
                </font>

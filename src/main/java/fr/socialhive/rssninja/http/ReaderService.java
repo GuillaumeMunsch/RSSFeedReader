@@ -6,6 +6,7 @@
 package fr.socialhive.rssninja.http;
 
 import fr.socialhive.rssninja.models.JSendResp;
+import fr.socialhive.rssninja.models.Feed;
 import fr.socialhive.rssninja.models.RSSFeed;
 import fr.socialhive.rssninja.models.RespAuth;
 import retrofit2.Call;
@@ -42,4 +43,10 @@ public interface ReaderService {
 
     @POST("/auth/logout")
     Call<JSendResp> logout();
+
+    @GET("/me/feeds")
+    Call<List<RSSFeed>> getFeeds();
+
+    @GET("/me/feeds/{id}")
+    Call<Feed> getFeedItems(@Path("id") int feedId);
 }
