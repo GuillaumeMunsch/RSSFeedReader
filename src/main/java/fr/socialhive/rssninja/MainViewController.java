@@ -47,16 +47,12 @@ import retrofit2.Response;
 public class MainViewController implements Initializable {
     @FXML
     private Button logoutButton;
-
     @FXML
     private Button addButton;
-
     @FXML
     private ListView feedsListView;
-
     @FXML
     private ListView feedItemsListView;
-
     @FXML
     private WebView webView;
 
