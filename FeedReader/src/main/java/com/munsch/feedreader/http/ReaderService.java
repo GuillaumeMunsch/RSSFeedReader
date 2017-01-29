@@ -5,11 +5,13 @@
  */
 package com.munsch.feedreader.http;
 
+import com.munsch.feedreader.models.RSSFeed;
 import com.munsch.feedreader.models.RespAuth;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 import java.io.Serializable;
 
@@ -30,6 +32,9 @@ public interface ReaderService {
        }
    }
 
-  @POST("/auth/login")
-  Call<RespAuth> login(@Body LoginInformation creds);
+    @POST("/auth/login")
+    Call<RespAuth> login(@Body LoginInformation creds);
+
+    @PUT("/me/feeds")
+    Call<RSSFeed> addFeed(@Body RSSFeed feed);
 }

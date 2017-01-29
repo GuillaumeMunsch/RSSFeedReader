@@ -25,6 +25,14 @@ public class RSSFeed implements Serializable {
     @NotNull
     private Long owner_id;
 
+    public RSSFeed() {
+    }
+
+    public RSSFeed(String name, String url) {
+        this.name = name;
+        this.url = url;
+    }
+
     public Long getId() {
         return id;
     }

@@ -18,7 +18,7 @@
                <children>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="771.0" prefWidth="198.0" style="-fx-background-color: #f4f7f9;" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="42.0" prefWidth="198.0" style="-fx-padding: 0; -fx-background-color: rgb(2, 195, 134); -fx-background-radius: none;" text="Add +" textFill="WHITE">
+                        <Button fx:id="addButton" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="42.0" prefWidth="198.0" style="-fx-padding: 0; -fx-background-color: rgb(2, 195, 134); -fx-background-radius: none;" onAction="#handleAddRSSButton" text="Add +" textFill="WHITE">
                            <font>
                               <Font name="Roboto Light" size="19.0" />
                            </font>

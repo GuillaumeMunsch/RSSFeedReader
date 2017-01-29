@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+
+import java.util.HashSet;
 
 /**
  *
@@ -25,6 +27,8 @@ public class WebServiceSingleton {
     private Retrofit retrofit;
     private String host;
     private ReaderService service;
+    private HashSet<String> cookies = new HashSet<>();
+
     public String getHost() {
         return host;
     }
@@ -43,6 +47,11 @@ public class WebServiceSingleton {
                 if (instance == null) {
                     instance = new WebServiceSingleton();
 
+                    OkHttpClient client = new OkHttpClient.Builder()
+                            .addInterceptor(new AddCookiesInterceptor())
+                            .addInterceptor(new ReceivedCookiesInterceptor())
+                            .build();
+
                     ObjectMapper om = new ObjectMapper();
                     om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
                     Gson gson = new GsonBuilder()
@@ -50,7 +59,8 @@ public class WebServiceSingleton {
                             .create();
 
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://www.socialhive.fr:4242")
+                            .baseUrl("http://localhost:8080")
+                            .client(client)
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                             .addConverterFactory(JacksonConverterFactory.create(om))
                             .build();
@@ -62,4 +72,11 @@ public class WebServiceSingleton {
         return instance;
     }
 
+    public HashSet<String> getCookies() {
+        return cookies;
+    }
+
+    public void setCookies(HashSet<String> cookies) {
+        this.cookies = cookies;
+    }
 }
